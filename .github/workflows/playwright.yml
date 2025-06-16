@@ -1,0 +1,25 @@
+name: Run Newsletter Signup Hourly
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs at minute 0 every hour (UTC)
+  workflow_dispatch:     # Allows manual trigger
+
+jobs:
+  run-newsletter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '23'
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🧪 Run newsletter signup automation
+        run: npm run start
