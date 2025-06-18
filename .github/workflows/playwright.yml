@@ -2,7 +2,7 @@ name: Run Newsletter Signup Hourly
 
 on:
   schedule:
-    - cron: '0 * * * *' # Runs at minute 0 every hour (UTC)
+    - cron: '*/10 * * * *'
   workflow_dispatch:     # Allows manual trigger
 
 jobs:
