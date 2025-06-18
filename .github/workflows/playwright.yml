@@ -20,6 +20,10 @@ jobs:
 
       - name: 📦 Install dependencies
         run: npm install
+        
+      - name: 📦 Install another
+        run:  npx playwright install   
+        
 
       - name: 🧪 Run newsletter signup automation
         run: npm run start
