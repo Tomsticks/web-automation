@@ -346,7 +346,29 @@ class NewsletterAutomation {
     const emailInput = await this.queryShadowDom(this.page, 'input[type="email"]');
     if (emailInput) {
       await emailInput.fill(this.config.testEmail);
-      const submitBtn = await this.queryShadowDom(this.page, 'button:has-text("Subscribe")');
+      const possibleButtonTexts = [
+        'Subscribe',
+        'Sign Up',
+        'Sign',
+        'Sign Me Up',
+        'Submit',
+        'Join',
+        'Get Updates',
+        'Notify Me',
+        'Go',
+        'Continue',
+      ];
+      
+      let submitBtn: any | null = null;
+      
+      for (const text of possibleButtonTexts) {
+        submitBtn = await this.queryShadowDom(this.page, `button:has-text("${text}")`);
+        if (submitBtn) {
+          console.log(`✅ Found submit button: "${text}"`);
+        }
+      }
+      
+      // const submitBtn = await this.queryShadowDom(this.page, 'button:has-text("Subscribe")');
       if (submitBtn) {
         await submitBtn.click();
         console.log('✅ Shadow DOM submission successful');
@@ -502,7 +524,7 @@ export const testConfigurations = [
 if (require.main === module) {
   (async () => {
     const config: AutomationConfig = {
-      targetUrl: process.argv[2] || 'https://kjobs.vercel.app/',
+      targetUrl: process.argv[2] || 'https://kjobs.vercel.app',
       headless: process.argv.includes('--headless'),
       enableDiagnostics: true,
       maxRetries: 3
