@@ -85,7 +85,7 @@ export class NewsletterAutomation {
 
   async initialize(): Promise<void> {
     this.browser = await chromium.launch({
-      headless: false, // Set to true for production
+      headless: true, // Set to true for production
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
@@ -137,6 +137,7 @@ export class NewsletterAutomation {
       await this.page.goto(config.url, {
         waitUntil: 'domcontentloaded',
         timeout: config.timeout
+        
       });
 
       // Collect initial diagnostics
